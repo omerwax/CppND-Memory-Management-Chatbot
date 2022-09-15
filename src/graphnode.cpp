@@ -3,6 +3,7 @@
 
 GraphNode::GraphNode(int id)
 {
+    _chatBot = NULL;
     _id = id;
 }
 
@@ -11,7 +12,9 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // _chatbot is allocatd by chatLogic class and is also deleted there, trying to delete it also here causes a 
+    // second deletion and a crash on exit. Leaving it commented for traceability
+    // delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
