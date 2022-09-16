@@ -45,6 +45,96 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// Task 2 - Rule of five
+
+// Copy constructor
+ChatBot::ChatBot (const ChatBot &source) 
+{
+    std::cout << "ChatBot:: copy constructor: Copying, from: 0x" << &source << " to: 0x" << this << std::endl;
+    this->_currentNode = source._currentNode;
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    
+    // Update ChatLogic Handle to point to this ChatBot object
+    this->_chatLogic->SetChatbotHandle(this);
+    
+    // Copy the image if it was initialized in the source
+    this->_image = new wxBitmap();
+    if (source._image != NULL)
+        *_image = *source._image;
+
+}
+// Copy assignment operator
+ChatBot& ChatBot::operator=(const ChatBot &source)
+{
+    std::cout << "ChatBot:: copy assignment operator: Assigning, from: 0x " << &source << " to: 0x" << this << std::endl;
+    if (this == &source)
+        return *this;
+    
+    // Free the current _image allocated memory, if it was allocated
+    if (this->_image != nullptr)
+        delete _image;
+
+    // Copy the image content
+    this->_image = new wxBitmap(); 
+    *this->_image = *source._image;
+
+    this->_rootNode = source._rootNode;
+    this->_chatLogic = source._chatLogic;
+    
+    // Update _chatBot logic handle to point to the here
+    this->_chatLogic->SetChatbotHandle(this);
+    
+    return *this;
+}
+// Move constructor
+ChatBot::ChatBot(ChatBot &&source)
+{
+    std::cout << "ChatBot:: Move-c’tor, from: 0x" << &source << " to: 0x " << this << std::endl;
+    
+    this->_image = _image;
+    source._image = NULL;
+            
+    this->_chatLogic = source._chatLogic;
+
+    // Update ChatLogic Handle to point to this ChatBot object
+    this->_chatLogic->SetChatbotHandle(this);
+    
+    source._chatLogic = nullptr;
+
+    this->_rootNode = source._rootNode;
+
+    source._rootNode = nullptr;
+                    
+}
+// Move assignment operator
+ChatBot& ChatBot::operator=(ChatBot &&source)
+{
+
+    std::cout << "ChatBot:: Move Assignment operator, from: 0x" << &source << " to: 0x " << this << std::endl;
+    
+    if (this == &source)
+        return *this;
+
+    // Free the current _image memeory if it is not NULL
+    if (this->_image !=NULL)
+        delete this->_image;
+
+    this->_image = _image;
+    source._image = NULL;
+            
+    this->_chatLogic = source._chatLogic;
+
+    // Update ChatLogic Handle to point to this ChatBot object
+    this->_chatLogic->SetChatbotHandle(this);
+    
+    source._chatLogic = nullptr;
+
+    this->_rootNode = source._rootNode;
+
+    source._rootNode = nullptr;
+
+}
 ////
 //// EOF STUDENT CODE
 
