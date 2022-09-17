@@ -117,10 +117,6 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
     if (this == &source)
         return *this;
 
-    // Free the current _image memeory if it is not NULL
-    // if (this->_image !=NULL)
-    //     delete this->_image;
-
     this->_image = new wxBitmap(*source._image);
     source._image = NULL;
             

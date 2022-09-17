@@ -222,6 +222,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename)
         }
     }
 
+    // Task 5
     ChatBot chatbot("../images/chatbot.png");
     SetChatbotHandle(&chatbot);
     
