@@ -60,8 +60,9 @@ ChatBot::ChatBot (const ChatBot &source)
     
     // Copy the image if it was initialized in the source
     this->_image = new wxBitmap();
-    if (source._image != NULL)
-        *_image = *source._image;
+
+    // if (source._image != NULL)
+    *_image = *source._image;
 
 }
 // Copy assignment operator
@@ -90,9 +91,9 @@ ChatBot& ChatBot::operator=(const ChatBot &source)
 // Move constructor
 ChatBot::ChatBot(ChatBot &&source)
 {
-    std::cout << "ChatBot:: Move-c’tor, from: 0x" << &source << " to: 0x " << this << std::endl;
+    std::cout << "ChatBot:: Move constructor, from: 0x" << &source << " to: 0x " << this << std::endl;
     
-    this->_image = _image;
+    this->_image = new wxBitmap(*source._image);
     source._image = NULL;
             
     this->_chatLogic = source._chatLogic;
@@ -117,10 +118,10 @@ ChatBot& ChatBot::operator=(ChatBot &&source)
         return *this;
 
     // Free the current _image memeory if it is not NULL
-    if (this->_image !=NULL)
-        delete this->_image;
+    // if (this->_image !=NULL)
+    //     delete this->_image;
 
-    this->_image = _image;
+    this->_image = new wxBitmap(*source._image);
     source._image = NULL;
             
     this->_chatLogic = source._chatLogic;
