@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <memory>
 #include "chatgui.h"
 
 // forward declarations
@@ -17,8 +18,11 @@ private:
     ////
 
     // data handles (owned)
-    std::vector<GraphNode *> _nodes;
-    std::vector<GraphEdge *> _edges;
+    // Task 3 - Exclusive ownership -  Change _node vector to express excelusive ownership
+    std::vector<std::unique_ptr<GraphNode>> _nodes;
+
+   // Task 4, change GraphNode to exclusive own chiledEdges only and hold a reference to parent edges
+    std::vector<std::unique_ptr<GraphEdge>> _edges;
 
     ////
     //// EOF STUDENT CODE
